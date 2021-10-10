@@ -25,5 +25,6 @@ export default {
     margin: 10px auto;
     padding: 20px;
     color: white;
+    border-radius: 10px;
 }
 </style>

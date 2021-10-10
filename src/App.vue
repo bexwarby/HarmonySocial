@@ -1,18 +1,24 @@
 <template>
   <div id="app" :style="image">
-    <!-- Import the nav bar -->
+    <!-- Display the nav bar -->
     <Nav />
     <!-- Import the router -->
     <router-view></router-view>
+    <!-- Display the footer -->
+    <Footer />
   </div>
 </template>
 
 <script>
+/** Imports */
 import Nav from "./components/Nav.vue";
+import Footer from "./components/Reusable/Footer.vue";
+
 export default {
   name: "App",
   components: {
     Nav,
+    Footer
   },
   data() {
     return {

@@ -30,7 +30,9 @@ export default {
     }
   },
   methods: {
-    addComment() {},
+    addComment() {
+      console.log("comment added")
+    },
   },
 };
 </script>
@@ -39,7 +41,13 @@ export default {
 form {
   width: 300px
 }
-input {
+form button {
+  background-color: #62c262;
+  font-size: large;
+  font-weight: bold;
+  color: #000f00;
+}
+form input {
   font-size: smaller;
 }
 

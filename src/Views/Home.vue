@@ -6,10 +6,14 @@
       planet warriors
     </p>
 
+    <button class="viewPosts" @click="openPosts">{{ postsButton }}</button>
+
     <!-- ONLY DISPLAY IF CONNECTED -->
     <PostArticle />
 
-    <article-section />
+
+
+    <article-section v-if="clicked"/>
   </div>
 </template>
 
@@ -26,6 +30,17 @@ export default {
     PostArticle,
     ArticleSection
   },
+  data() {
+    return {
+      clicked: false,
+      postsButton: "Click here to read recent posts"
+    }
+  },
+  methods: {
+    openPosts() {
+      this.clicked = true;
+    }
+  }
 };
 </script>
 
@@ -37,5 +52,12 @@ export default {
   font-weight: bold;
   padding: 5px;
   font-style: italic;
+}
+.viewPosts {
+      background-color: aliceblue;
+    width: 400px;
+    height: 40px;
+    font-size: initial;
+    font-weight: 700;
 }
 </style>

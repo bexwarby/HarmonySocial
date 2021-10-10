@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
     .article {
-        border-bottom: 3px solid white
+        border-bottom: 6px solid white
     }
     .heading {
         font-size: larger;

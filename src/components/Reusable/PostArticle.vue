@@ -1,13 +1,14 @@
 <template>
   <form>
     <label for="comment">Share your tips and thoughts in a post here</label>
-    <input type="text" name="heading" v-model="heading" id="heading" placeholder="Give your post a head" required=true>
+    <input type="text" name="heading" v-model="heading" id="heading" placeholder="Give your post a heading" required=true>
     <textarea
       name="postArticle"
       v-model="postArticle"
       id="postArticle"
       cols="20"
       rows="10"
+      placeholder="Keep it as short or as long as you like..."
     ></textarea>
     <input type="submit" value="Post" class="submit" />
   </form>
@@ -48,7 +49,8 @@ form .submit {
 }
 form input {
   height: 30px;
-  font-size: larger;
+  font-size: smaller;
   border-radius: 5px;
+  margin: 10px
 }
 </style>
