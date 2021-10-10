@@ -1,6 +1,7 @@
 <template>
   <form>
     <label for="comment">Share your tips and thoughts in a post here</label>
+    <input type="text" name="heading" v-model="heading" id="heading" placeholder="Give your post a head" required=true>
     <textarea
       name="postArticle"
       v-model="postArticle"
@@ -18,6 +19,7 @@ export default {
   data() {
     return {
       postArticle: "",
+      heading: ""
     };
   },
 };

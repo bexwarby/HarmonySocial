@@ -5,18 +5,22 @@
       <li>
         <slot :comment="comment"></slot>
         <!-- slot for like button on comment -->
-        <slot> </slot>
+        <slot> 
+          <like-button />
+        </slot>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import LikeButton from "../Reusable/LikeButton.vue";
 export default {
   name: "CommentList",
+  components: {LikeButton},
   data() {
     return {
-      comment: "",
+      comment: "Love it :-)",
       comments: [],
     };
   },

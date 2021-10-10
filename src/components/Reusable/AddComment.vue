@@ -1,5 +1,6 @@
 <template>
-  <div class="comment section">
+  <div class="commentSection">
+
     <form
       action="/article/comment/:id"
       @submit.prevent="addComment"
@@ -15,7 +16,7 @@
       <button type="submit">Add comment</button>
     </form>
 
-    <slot></slot>
+    
   </div>
   <!-- How would the user then delete or edit their comment? -->
 </template>
@@ -23,11 +24,23 @@
 <script>
 export default {
   name: "Comment",
+  data() {
+    return {
+      comment: ""
+    }
+  },
   methods: {
     addComment() {},
   },
 };
 </script>
 
-<style>
+<style scoped>
+form {
+  width: 300px
+}
+input {
+  font-size: smaller;
+}
+
 </style>

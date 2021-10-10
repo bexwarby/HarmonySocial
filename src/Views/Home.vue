@@ -8,6 +8,8 @@
 
     <!-- ONLY DISPLAY IF CONNECTED -->
     <PostArticle />
+
+    <article-section />
   </div>
 </template>
 
@@ -15,12 +17,14 @@
 /* IMPORTS */
 import Header from "../components/Reusable/Header.vue";
 import PostArticle from "../components/Reusable/PostArticle.vue";
+import ArticleSection from "../components/Reusable/ArticleSection.vue";
 
 export default {
   name: "About",
   components: {
     Header,
     PostArticle,
+    ArticleSection
   },
 };
 </script>
