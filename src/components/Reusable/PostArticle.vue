@@ -1,11 +1,18 @@
 <template>
   <form>
-    <label for="comment">Share your tips and thoughts in a post here</label>
-    <input type="text" name="heading" v-model="heading" id="heading" placeholder="Give your post a heading" required=true>
+    <label for="title">Share your tips and thoughts in a post here</label>
+    <input
+      type="text"
+      name="title"
+      v-model="title"
+      id="title"
+      placeholder="Give your post a heading"
+      required="true"
+    />
     <textarea
-      name="postArticle"
-      v-model="postArticle"
-      id="postArticle"
+      name="content"
+      v-model="content"
+      id="content"
       cols="20"
       rows="10"
       placeholder="Keep it as short or as long as you like..."
@@ -19,9 +26,32 @@ export default {
   name: "PostArticle",
   data() {
     return {
-      postArticle: "",
-      heading: ""
+      content: "",
+      title: "",
+      date: "",
     };
+  },
+  methods: {
+    async onSubmit() {
+      const addArticle = JSON.stringify({
+        title: this.title,
+        content: this.content,
+        date: new Date(),
+      });
+      console.log(addArticle);
+      // Response from server
+      let res = await fetch(
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: addArticle,
+        }
+      );
+      // post the data
+      let data = await res.json();
+      console.log(data);
+    },
   },
 };
 </script>
@@ -51,6 +81,6 @@ form input {
   height: 30px;
   font-size: smaller;
   border-radius: 5px;
-  margin: 10px
+  margin: 10px;
 }
 </style>

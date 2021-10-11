@@ -27,10 +27,24 @@
         <li>
           <a><router-link to="/login">Log in</router-link></a>
         </li>
+        <!-- Sign Out -->
+        <li>
+          <a @click="logOut"></a>
+        </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  methods: {
+    logOut() {
+      localStorage.removeItem("token");
+    },
+  },
+};
+</script>
 
 
 <style scoped>

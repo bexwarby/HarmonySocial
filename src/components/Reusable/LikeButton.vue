@@ -9,7 +9,7 @@
       "
     >
       <img alt="like button" src="../../assets/tick.png" />
-      {{ count }}
+      {{ likeCount }}
     </button>
   </div>
 </template>
@@ -19,20 +19,30 @@ export default {
   name: "LikeButton",
   data() {
     return {
-      count: 0,
+      likeCount: 0,
     };
-  },
-  props: {
-    // need to assign comment and user ID to the like clicked
-    /* commentID: "",
-    userID: "", */
   },
   // Methods with
   methods: {
-    // Use fetch to add like to specific article
     likeAdd() {
-      this.count += 1;
-      console.log("like added");
+      // Use fetch to add like to specific article
+      /* async likeAdd() {
+      const response = await fetch(
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post/like",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: postId,
+        }
+      );
+      const data = await response.json();
+      /*   let newLike = data.postId;
+      console.log(newLike); */
+
+      // how do I get the postId??
+      this.likeCount += 1;
+      /* return data.json();
+    }, */
     },
   },
   // Computed
@@ -45,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-  img {
-    height: 25px
-  }
+img {
+  height: 25px;
+}
 </style>

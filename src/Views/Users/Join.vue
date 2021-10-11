@@ -3,31 +3,20 @@
     <Header title="Welcome to the Harmony Community" subtitle="Sign Up Now!" />
 
     <!-- sign up form -->
-    <form action="/profile/:newUserId" @submit.prevent="signUp" method="post">
-      <!-- user name input -->
-      <label for="fullName">Full name:</label>
-      <input type="text" name="fullName" v-model="fullName" id="fullName" />
-      <!-- date of birth input -->
-      <label for="dob">Date of birth:</label>
-      <input type="date" name="dob" v-model="dob" id="dob" />
+    <form @submit.prevent="signUp">
+      <!-- first name input -->
+      <label for="firstname">First name:</label>
+      <input type="text" name="firstname" v-model="firstname" id="firstname" />
+      <!-- first name input -->
+      <label for="lastname">Surname:</label>
+      <input type="text" name="lastname" v-model="lastname" id="lastname" />
       <!-- email address input -->
-      <label for="userEmail">Email address:</label>
-      <input type="text" name="userEmail" v-model="userEmail" id="userEmail" />
-      <!-- user name input -->
-      <label for="username">Your username:</label>
-      <input type="text" name="username" v-model="username" id="username" />
+      <label for="email">Email address:</label>
+      <input type="text" name="email" v-model="email" id="email" />
       <!-- Password input -->
       <label for="password">Please choose a password:</label>
       <input type="password" name="password" v-model="password" id="password" />
       <p class="warning"><i>Must include 1 letter and 1 number</i></p>
-      <!-- Password repeat input -->
-      <label for="password2">Repeat the password:</label>
-      <input
-        type="password"
-        name="password2"
-        v-model="password2"
-        id="password2"
-      />
       <!-- submit button -->
       <input type="submit" value="Let's go!" class="button" />
     </form>
@@ -43,20 +32,38 @@ export default {
   },
   data() {
     return {
-      fullName: "",
-      dob: "",
-      userEmail: "",
-      username: "",
+      firstname: "",
+      lastname: "",
+      email: "",
       password: "",
-      password2: "",
     };
   },
   methods: {
-    signUp() {
-      console.log(this.fullName, this.dob, this.userEmail, this.username);
-
+    // method to register as a user
+    async signUp() {
+      // fetch the source data
+      let res = await fetch(
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/register",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstname: this.firstname,
+            lastname: this.lastname,
+            email: this.email,
+            password: this.password,
+          }),
+        }
+      );
+      if (res.status === 201) {
+        localStorage.setItem("user", res.data);
+        this.$router.push("/login");
+      }
+      // set the new data
       alert("Please log in now");
-      this.$router.push("/login");
     },
   },
 };
@@ -86,7 +93,7 @@ form .submit {
 }
 form input {
   height: 30px;
-  font-size: x-large;
+  font-size: large;
   border-radius: 5px;
 }
 form label {

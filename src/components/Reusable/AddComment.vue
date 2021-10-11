@@ -1,11 +1,6 @@
 <template>
   <div class="commentSection">
-
-    <form
-      action="/article/comment/:id"
-      @submit.prevent="addComment"
-      method="post"
-    >
+    <form @submit.prevent="addComment">
       <input
         type="text"
         name="comment"
@@ -15,8 +10,6 @@
       />
       <button type="submit">Add comment</button>
     </form>
-
-    
   </div>
   <!-- How would the user then delete or edit their comment? -->
 </template>
@@ -26,12 +19,17 @@ export default {
   name: "Comment",
   data() {
     return {
-      comment: ""
-    }
+      comment: "",
+    };
   },
   methods: {
-    addComment() {
-      console.log("comment added")
+    async addComment() {
+      let res = await fetch(
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post/comment"
+      );
+      let data = res.json();
+      console.log("comment added: " + this.comment);
+      return data.json;
     },
   },
 };
@@ -39,7 +37,7 @@ export default {
 
 <style scoped>
 form {
-  width: 300px
+  width: 300px;
 }
 form button {
   background-color: #62c262;
@@ -50,5 +48,4 @@ form button {
 form input {
   font-size: smaller;
 }
-
 </style>

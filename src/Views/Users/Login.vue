@@ -3,10 +3,10 @@
     <Header title="Sign In" subtitle="Let the eco-magic begin!" />
 
     <!-- sign up form -->
-    <form action="/profile/:id" @submit.prevent="signIn" method="get">
+    <form @submit.prevent="signIn" method="get">
       <!-- email or user name input -->
-      <label for="emailUser">Email or username:</label>
-      <input type="text" name="emailUser" v-model="emailUser" id="emailUser" />
+      <label for="email">Email address:</label>
+      <input type="text" name="email" v-model="email" id="email" />
       <!-- password input -->
       <!-- ADD EYE TOGGLE HERE -->
       <label for="password" class="passLabel">Password:</label>
@@ -25,6 +25,8 @@
 
 <script>
 import Header from "../../components/Reusable/Header.vue";
+/* import { mapMutations } from "vuex";
+ */
 export default {
   name: "Login",
   components: {
@@ -32,17 +34,41 @@ export default {
   },
   data() {
     return {
-      emailUser: "",
+      email: "",
       password: "",
     };
   },
   methods: {
-    signIn() {
+    // method to sign in
+    async signIn() {
+      let res = await fetch(
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/login",
+        {
+          method: "POST",
+          header: {
+            "Content-Type": "application/json",
+            authorization: `"bearer" + token`,
+          },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password,
+          }),
+        }
+      );
+
+      const data = await res.json();
+      const token = data.token;
+      localStorage.setItem("user-token", token); // store the token in localstorage
+
+      console.log(data);
       console.log("signed in");
+
       alert("You will now be able to comment and like posts");
       // PUSH TO CONNECTED HOME
       this.$router.push("/");
     },
+
+    // button to sign up
     signUpNow() {
       console.log("pushed");
       this.$router.push("/join");
@@ -58,8 +84,8 @@ form {
   justify-content: center;
   flex-direction: column;
   width: 300px;
-  font-size: xx-large;
-  margin: 30px auto;
+  font-size: x-large;
+  margin: 30px auto 0 auto;
   font-weight: bold;
   background-color: rgb(39 81 6 / 60%);
   padding: 30px;
