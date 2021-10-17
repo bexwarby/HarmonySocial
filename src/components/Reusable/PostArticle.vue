@@ -28,27 +28,26 @@ export default {
     return {
       content: "",
       title: "",
-      date: "",
     };
   },
   methods: {
     async onSubmit() {
-      const addArticle = JSON.stringify({
-        title: this.title,
-        content: this.content,
-        date: new Date(),
-      });
-      console.log(addArticle);
-      // Response from server
-      let res = await fetch(
-        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: addArticle,
-        }
-      );
-      // post the data
+      // assign url and fetch options
+      const url = "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post";
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `"bearer" + token`,
+        },
+        body: JSON.stringify({
+          title: this.title,
+          content: this.content,
+        }),
+      };
+      // fetch reponse
+      let res = await fetch(url, options);
+      // parse and post the data
       let data = await res.json();
       console.log(data);
     },

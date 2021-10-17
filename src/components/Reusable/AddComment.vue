@@ -3,9 +3,9 @@
     <form @submit.prevent="addComment">
       <input
         type="text"
-        name="comment"
-        v-model="comment"
-        id="comment"
+        name="content"
+        v-model="content"
+        id="content"
         placeholder="Leave a comment"
       />
       <button type="submit">Add comment</button>
@@ -19,17 +19,29 @@ export default {
   name: "Comment",
   data() {
     return {
-      comment: "",
+      content: "",
     };
   },
   methods: {
     async addComment() {
-      let res = await fetch(
-        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post/comment"
-      );
+      // assign url and fetch options
+      const url =
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post/comment";
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `"bearer" + token`,
+        },
+        body: JSON.stringify({
+          postId: postId,
+          content: this.content,
+        }),
+      };
+      let res = await fetch(url, options);
       let data = res.json();
-      console.log("comment added: " + this.comment);
-      return data.json;
+      console.log("comment added: " + this.content + data);
+      /* return data.json; */
     },
   },
 };

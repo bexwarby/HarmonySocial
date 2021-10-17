@@ -47,7 +47,6 @@ export default {
         {
           method: "POST",
           headers: {
-            Accept: "application/json",
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -58,8 +57,10 @@ export default {
           }),
         }
       );
+      const data = await res.json();
       if (res.status === 201) {
-        localStorage.setItem("user", res.data);
+        /*         localStorage.setItem("user", data); */
+        console.log(data);
         this.$router.push("/login");
       }
       // set the new data

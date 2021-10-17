@@ -54,10 +54,21 @@ export default {
     Header,
   },
   async mounted() {
-    let res = await fetch(
-      "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/user/:id"
-    );
+    // assign url and fetch options
+    const url =
+      "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/user/:id";
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `"bearer" + token`,
+      },
+    };
+    let res = await fetch(url, options);
     let data = res.JSON();
+
+    // set profile data :
+    // ADD IF ELSE - if age known, print, otherwise outline red
     this.firstname = data.firstname;
     this.lastname = data.lastname;
     this.age = data.age;

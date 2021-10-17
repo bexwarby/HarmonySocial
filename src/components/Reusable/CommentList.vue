@@ -2,8 +2,8 @@
   <div>
     <ul>
       <!-- v-for="(comment, index) in comments" -->
-      <li>
-        <!-- v-for="comment in comments" :key="comment" -->
+      <li v-for="comment in comments" :key="comment">
+        <!--  -->
         <div>
           <slot :comment="comment"></slot>
         </div>
@@ -28,15 +28,22 @@ export default {
     };
   },
   async mounted() {
-    let res = await fetch(
-      "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post",
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    // assign url and fetch options
+    const url = "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post";
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: this.title,
+        content: this.content,
+      }),
+    };
+    // on mounted, fetch posts
+    let res = await fetch(url, options);
     let data = res.json();
-    /* for (i = 0; i > 20; i++) { */
+    // set specific post comments
     this.comment = data.postId.comment;
   },
   /* return data.json; */

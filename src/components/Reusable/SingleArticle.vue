@@ -1,7 +1,7 @@
 <template>
   <div class="articles">
-    <!-- v-for="article in articles" :key="article.id" -->
-    <div class="article">
+    <!--  -->
+    <div class="article" v-for="article in articles" :key="article.id">
       <!-- Fetch this information from the server -->
       <p class="heading">{{ title }}</p>
       <p>{{ content }}</p>
@@ -42,27 +42,28 @@ export default {
   // Methods to display articles
   methods: {
     async openArticles() {
-      // on click, load up to 20 articles
-      /* let res = await fetch(
-        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/posts",
-        {
-          method: "GET",
-          headers: {
-            Authorization: Bearer tokenXXX,
-          },
-        }
-      );
-      let data = await res.json();npm i --save axios
+      // assign url and fetch options
+      const url =
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/posts&page=1&limit=20";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      // on click, load up to 1 page of 20 articles
+      let res = await fetch(url, options);
+      let data = await res.json();
       // add 20 articles into the article array to display
       const articleDisplay = {
         title: data.title,
         content: data.content,
         firstname: data.firstname,
         lastname: data.lastname,
-      }; */
-      console.log("articleDisplay");
-      /* this.articles.push(articleDisplay);
-      return data.json(); */
+      };
+      console.log(articleDisplay);
+      // push the article into the articles array to display up to 20
+      this.articles.push(articleDisplay);
     },
   },
 };

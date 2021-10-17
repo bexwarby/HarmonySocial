@@ -24,25 +24,29 @@ export default {
   },
   // Methods with
   methods: {
-    likeAdd() {
-      // Use fetch to add like to specific article
-      /* async likeAdd() {
-      const response = await fetch(
-        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post/like",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: postId,
-        }
-      );
-      const data = await response.json();
-      /*   let newLike = data.postId;
-      console.log(newLike); */
+    // Use fetch to add like to specific article
+    async likeAdd() {
+      // assign url and fetch options
+      const url =
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/post/like";
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `"bearer" + token`,
+        },
+        body: {
+          postId: String,
+        },
+      };
+      let res = await fetch(url, options);
+      const data = await res.json();
 
-      // how do I get the postId??
+      let newLike = data.postId;
+      console.log(newLike);
+
       this.likeCount += 1;
-      /* return data.json();
-    }, */
+      return data.json();
     },
   },
   // Computed

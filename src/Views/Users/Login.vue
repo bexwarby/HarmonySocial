@@ -41,26 +41,29 @@ export default {
   methods: {
     // method to sign in
     async signIn() {
-      let res = await fetch(
-        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/login",
-        {
-          method: "POST",
-          header: {
-            "Content-Type": "application/json",
-            authorization: `"bearer" + token`,
-          },
-          body: JSON.stringify({
-            email: this.email,
-            password: this.password,
-          }),
-        }
-      );
-
+      // assign url and fetch options
+      const url =
+        "https://fsjs-s9-social-network-api.osc-fr1.scalingo.io/login";
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `"bearer" + token`,
+        },
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password,
+        }),
+      };
+      // fetch response
+      let res = await fetch(url, options);
+      console.log(res);
+      // parse the response
       const data = await res.json();
+      console.log(data);
+      // set the token in local storage
       const token = data.token;
       localStorage.setItem("user-token", token); // store the token in localstorage
-
-      console.log(data);
       console.log("signed in");
 
       alert("You will now be able to comment and like posts");
